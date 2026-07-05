@@ -1,0 +1,118 @@
+/* Core Variables & Reset */
+:root {
+    --bg-color: #f2f2f7;
+    --text-primary: #1c1c1e;
+    --text-secondary: #8e8e93;
+    --accent-color: #007aff;
+    --glass-bg: rgba(255, 255, 255, 0.6);
+    --glass-border: rgba(255, 255, 255, 0.4);
+    --shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    --danger: #ff3b30;
+    --success: #34c759;
+    --math: #ff9500;
+    --physics: #5856d6;
+    --chemistry: #ff2d55;
+}
+
+.dark-theme {
+    --bg-color: #000000;
+    --text-primary: #ffffff;
+    --text-secondary: #ebebf599;
+    --glass-bg: rgba(28, 28, 30, 0.5);
+    --glass-border: rgba(255, 255, 255, 0.1);
+    --shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; -webkit-tap-highlight-color: transparent; }
+
+body {
+    background-color: var(--bg-color); color: var(--text-primary);
+    background-image: radial-gradient(circle at 15% 50%, rgba(0, 122, 255, 0.15), transparent 25%), radial-gradient(circle at 85% 30%, rgba(88, 86, 214, 0.15), transparent 25%);
+    background-attachment: fixed; overflow: hidden; height: 100vh; width: 100vw; transition: background-color 0.4s ease, color 0.4s ease;
+}
+
+/* Typography & Utilities */
+h1, h2, h3 { font-weight: 700; letter-spacing: -0.5px; }
+.subtitle { color: var(--text-secondary); font-size: 1.1rem; margin-top: 4px; }
+.section-title { font-size: 1.3rem; margin: 24px 0 16px; }
+.small-text { color: var(--text-secondary); font-size: 0.85rem; }
+
+/* Glassmorphism Classes */
+.glass-panel, .glass-card, .glass-btn {
+    background: var(--glass-bg); backdrop-filter: blur(20px) saturate(180%);
+    -webkit-backdrop-filter: blur(20px) saturate(180%); border: 1px solid var(--glass-border);
+}
+
+.glass-card { border-radius: 24px; padding: 20px; box-shadow: var(--shadow); margin-bottom: 16px; transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
+.glass-card:active { transform: scale(0.98); }
+
+.glass-btn {
+    border-radius: 16px; padding: 14px 24px; color: var(--text-primary); font-size: 1rem; font-weight: 600;
+    cursor: pointer; transition: all 0.2s ease; display: inline-flex; justify-content: center; align-items: center; gap: 8px;
+}
+.glass-btn.primary { background: var(--accent-color); color: white; border: none; }
+.glass-btn.danger { background: rgba(255, 59, 48, 0.2); color: var(--danger); border: 1px solid rgba(255, 59, 48, 0.3); }
+.glass-btn.small { padding: 10px 16px; font-size: 0.9rem; border-radius: 12px; }
+.glass-btn.full-width { width: 100%; margin-bottom: 16px; }
+.glass-btn:active { opacity: 0.7; transform: scale(0.95); }
+
+/* Layout & Views */
+header { padding: 50px 20px 20px; display: flex; justify-content: center; z-index: 100; position: relative; }
+.dynamic-island { background: black; color: white; border-radius: 24px; padding: 10px 20px; display: flex; align-items: center; justify-content: space-between; min-width: 200px; box-shadow: 0 4px 12px rgba(0,0,0,0.5); transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
+
+#app-content { height: calc(100vh - 180px); overflow-y: auto; padding: 0 20px 100px; scroll-behavior: smooth; }
+#app-content::-webkit-scrollbar { display: none; }
+
+.view { display: none; animation: fadeIn 0.4s ease forwards; }
+.view.active { display: block; }
+
+/* Dashboard Specifics */
+.stats-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 24px; }
+.stat-box { text-align: center; }
+.progress-ring-container { position: relative; display: flex; justify-content: center; align-items: center; margin-top: 12px; }
+.ring-bg { fill: none; stroke: var(--glass-border); stroke-width: 6; }
+.ring-progress { fill: none; stroke: var(--accent-color); stroke-width: 6; stroke-linecap: round; stroke-dasharray: 220; stroke-dashoffset: 220; transition: stroke-dashoffset 1s ease-out; transform: rotate(-90deg); transform-origin: 50% 50%; }
+#goal-ring { stroke: var(--success); }
+.ring-text { position: absolute; font-weight: 700; font-size: 1.1rem; }
+
+/* Timetable & Lists */
+.timetable-card { display: flex; padding: 16px; gap: 16px; align-items: center; }
+.subject-color { width: 4px; height: 40px; border-radius: 4px; }
+.subject-color.math { background: var(--math); }
+.subject-color.physics { background: var(--physics); }
+.subject-color.chemistry { background: var(--chemistry); }
+.session-info h4 { font-size: 1.1rem; }
+.session-info p { color: var(--text-secondary); font-size: 0.9rem; margin-top: 4px; }
+.session-info .time { display: block; font-size: 0.8rem; color: var(--accent-color); margin-top: 6px; font-weight: 600; }
+
+/* Focus Mode */
+.focus-container { text-align: center; display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100%; padding-top: 20px; }
+.timer-duration-selector { display: flex; gap: 8px; justify-content: center; margin: 20px 0; flex-wrap: wrap; }
+.toggle-duration.active { background: var(--accent-color); color: white; border: none; }
+.timer-display { font-size: 6rem; font-weight: 800; font-variant-numeric: tabular-nums; letter-spacing: -2px; margin: 10px 0; background: linear-gradient(135deg, var(--text-primary), var(--text-secondary)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+.timer-controls { display: flex; gap: 12px; margin-top: 24px; }
+.ambient-sounds { margin-top: 40px; width: 100%; }
+.sound-toggles { display: flex; gap: 12px; justify-content: center; margin-top: 16px; }
+
+/* Bottom Navigation */
+.bottom-nav { position: fixed; bottom: 0; left: 0; right: 0; height: 90px; padding-bottom: 20px; display: flex; justify-content: space-around; align-items: center; border-top: 1px solid var(--glass-border); border-radius: 32px 32px 0 0; z-index: 100; }
+.nav-item { display: flex; flex-direction: column; align-items: center; text-decoration: none; color: var(--text-secondary); transition: color 0.2s ease; position: relative; }
+.nav-item.active { color: var(--accent-color); }
+.nav-item .icon { font-size: 1.5rem; margin-bottom: 4px; }
+.nav-item .label { font-size: 0.75rem; font-weight: 600; }
+.focus-fab .fab-inner { background: var(--accent-color); border-radius: 50%; width: 56px; height: 56px; display: flex; justify-content: center; align-items: center; transform: translateY(-20px); box-shadow: 0 8px 24px rgba(0, 122, 255, 0.4); border: 4px solid var(--bg-color); transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
+.focus-fab:active .fab-inner { transform: translateY(-15px) scale(0.9); }
+
+/* Splash & Modals */
+#splash-screen { position: fixed; top: 0; left: 0; right: 0; bottom: 0; z-index: 9999; display: flex; flex-direction: column; justify-content: center; align-items: center; background: var(--bg-color); transition: opacity 0.5s ease; }
+.splash-logo { font-size: 2.5rem; font-weight: 800; background: linear-gradient(135deg, var(--accent-color), var(--physics)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 20px; }
+.loading-spinner { width: 40px; height: 40px; border: 4px solid var(--glass-border); border-top-color: var(--accent-color); border-radius: 50%; animation: spin 1s linear infinite; }
+
+.modal-overlay { position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.5); backdrop-filter: blur(5px); z-index: 1000; display: none; justify-content: center; align-items: center; opacity: 0; transition: opacity 0.3s ease; }
+.modal-overlay.active { display: flex; opacity: 1; }
+.modal-content { width: 90%; max-width: 400px; }
+.modal-content input, .modal-content select { width: 100%; padding: 12px; margin: 8px 0 16px; border-radius: 12px; border: 1px solid var(--glass-border); background: var(--glass-bg); color: var(--text-primary); }
+
+/* Animations */
+@keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes spin { to { transform: rotate(360deg); } }
